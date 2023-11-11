@@ -8,8 +8,6 @@ class AppRouter {
   static Route onGenerateRoute(RouteSettings settings) {
     log('Route: ${settings.name}');
     switch (settings.name) {
-      case '/':
-        return HomeScreen.route();
       case HomeScreen.routeName:
         return HomeScreen.route();
       case SplashScreen.routeName:
@@ -22,6 +20,8 @@ class AppRouter {
         return CatalogScreen.route(category: settings.arguments as Category);
       case WishlistScreen.routeName:
         return WishlistScreen.route();
+      case CheckoutScreen.routeName:
+        return CheckoutScreen.route();
       default:
         return _errorRoute();
     }

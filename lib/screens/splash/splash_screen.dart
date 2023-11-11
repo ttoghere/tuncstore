@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
             ),
             child: Text(
               'TuncStore',
-              style: Theme.of(context).textTheme.headline2!.copyWith(
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
                     color: Colors.white,
                   ),
             ),

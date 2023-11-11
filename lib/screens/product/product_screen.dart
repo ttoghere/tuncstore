@@ -67,14 +67,14 @@ class ProductScreen extends StatelessWidget {
                               product.name,
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .headlineSmall!
                                   .copyWith(color: Colors.white),
                             ),
                             Text(
                               '\$${product.price}',
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline5!
+                                  .headlineSmall!
                                   .copyWith(color: Colors.white),
                             ),
                           ],
@@ -87,13 +87,13 @@ class ProductScreen extends StatelessWidget {
                   initiallyExpanded: true,
                   title: Text(
                     "Product Information",
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   children: <Widget>[
                     ListTile(
                       title: Text(
                         'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     )
                   ],
@@ -101,13 +101,13 @@ class ProductScreen extends StatelessWidget {
                 ExpansionTile(
                   title: Text(
                     "Delivery Information",
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   children: <Widget>[
                     ListTile(
                       title: Text(
                         'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     )
                   ],

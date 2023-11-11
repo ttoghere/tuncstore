@@ -10,7 +10,7 @@ class Cart extends Equatable {
   List<Object?> get props => [products];
 
   Map productQuantity(products) {
-    var quantity = Map();
+    var quantity = {};
 
     products.forEach((product) {
       if (!quantity.containsKey(product)) {
@@ -29,8 +29,9 @@ class Cart extends Equatable {
   double deliveryFee(subtotal) {
     if (subtotal >= 30.0) {
       return 0.0;
-    } else
+    } else {
       return 10.0;
+    }
   }
 
   String freeDelivery(subtotal) {

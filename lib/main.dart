@@ -1,3 +1,4 @@
+import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
@@ -32,7 +33,13 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductBloc(
             productRepository: ProductRepository(),
           )..add(LoadProducts()),
-        )
+        ),
+        BlocProvider(
+          create: (context) => CheckoutBloc(
+            cartBloc: context.read<CartBloc>(),
+            checkoutRepository: CheckoutRepository(),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: "TuncStore",

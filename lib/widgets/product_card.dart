@@ -71,15 +71,17 @@ class ProductCard extends StatelessWidget {
                       children: [
                         Text(
                           product.name,
-                          style:
-                              Theme.of(context).textTheme.headline5!.copyWith(
-                                    color: Colors.white,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(
+                                color: Colors.white,
+                              ),
                         ),
                         Text(
                           '\$${product.price}',
                           style:
-                              Theme.of(context).textTheme.headline6!.copyWith(
+                              Theme.of(context).textTheme.titleLarge!.copyWith(
                                     color: Colors.white,
                                   ),
                         ),
@@ -93,7 +95,7 @@ class ProductCard extends StatelessWidget {
                             color: Colors.white,
                           ),
                           onPressed: () {
-                            final snackBar = const SnackBar(
+                            const snackBar = SnackBar(
                               content: Text('Added to your Cart!'),
                             );
                             ScaffoldMessenger.of(context)
@@ -112,7 +114,7 @@ class ProductCard extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  final snackBar = const SnackBar(
+                                  const snackBar = SnackBar(
                                     content:
                                         Text('Removed from your Wishlist!'),
                                   );

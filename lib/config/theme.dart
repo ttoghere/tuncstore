@@ -9,44 +9,44 @@ ThemeData theme() {
 }
 
 TextTheme textTheme() {
-  return TextTheme(
-    headline1: TextStyle(
+  return const TextTheme(
+    displayLarge: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 36,
     ),
-    headline2: TextStyle(
+    displayMedium: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 24,
     ),
-    headline3: TextStyle(
+    displaySmall: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 18,
     ),
-    headline4: TextStyle(
+    headlineMedium: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 16,
     ),
-    headline5: TextStyle(
+    headlineSmall: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.bold,
       fontSize: 14,
     ),
-    headline6: TextStyle(
+    titleLarge: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.normal,
       fontSize: 14,
     ),
-    bodyText1: TextStyle(
+    bodyLarge: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.normal,
       height: 1.75,
       fontSize: 12,
     ),
-    bodyText2: TextStyle(
+    bodyMedium: TextStyle(
       color: Colors.black,
       fontWeight: FontWeight.normal,
       fontSize: 10,

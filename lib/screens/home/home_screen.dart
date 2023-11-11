@@ -8,10 +8,12 @@ import "package:tuncstore/widgets/widgets.dart";
 class HomeScreen extends StatelessWidget {
   static const String routeName = "/";
 
+  const HomeScreen({super.key});
+
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (_) => HomeScreen(),
+      builder: (_) => const HomeScreen(),
     );
   }
 

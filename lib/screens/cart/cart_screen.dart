@@ -6,10 +6,12 @@ import 'package:tuncstore/widgets/widgets.dart';
 class CartScreen extends StatelessWidget {
   static const String routeName = '/cart';
 
+  const CartScreen({super.key});
+
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (context) => CartScreen(),
+      builder: (context) => const CartScreen(),
     );
   }
 
@@ -37,7 +39,7 @@ class CartScreen extends StatelessWidget {
                             flex: 1,
                             child: Text(
                               state.cart.freeDeliveryString,
-                              style: Theme.of(context).textTheme.headline5,
+                              style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
                           Expanded(
@@ -47,7 +49,7 @@ class CartScreen extends StatelessWidget {
                                 Navigator.pushNamed(context, '/');
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.black,
+                                backgroundColor: Colors.black,
                                 shape: const RoundedRectangleBorder(),
                                 elevation: 0,
                               ),
@@ -55,7 +57,7 @@ class CartScreen extends StatelessWidget {
                                 'Add More Items',
                                 style: Theme.of(context)
                                     .textTheme
-                                    .headline5!
+                                    .headlineSmall!
                                     .copyWith(color: Colors.white),
                               ),
                             ),
@@ -95,11 +97,13 @@ class CartScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('SUBTOTAL',
-                                    style:
-                                        Theme.of(context).textTheme.headline5),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                                 Text('\$${state.cart.subtotalString}',
-                                    style:
-                                        Theme.of(context).textTheme.headline5),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                               ],
                             ),
                           ),
@@ -110,11 +114,13 @@ class CartScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('DELIVERY FEE',
-                                    style:
-                                        Theme.of(context).textTheme.headline5),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                                 Text('\$${state.cart.deliveryFeeString}',
-                                    style:
-                                        Theme.of(context).textTheme.headline5),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall),
                               ],
                             ),
                           ),
@@ -150,14 +156,14 @@ class CartScreen extends StatelessWidget {
                                     'TOTAL',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5!
+                                        .headlineSmall!
                                         .copyWith(color: Colors.white),
                                   ),
                                   Text(
                                     '\$${state.cart.totalString}',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5!
+                                        .headlineSmall!
                                         .copyWith(color: Colors.white),
                                   ),
                                 ],

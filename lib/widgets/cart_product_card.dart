@@ -33,11 +33,11 @@ class CartProductCard extends StatelessWidget {
               children: [
                 Text(
                   product.name,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 Text(
                   '\$${product.price}',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ],
             ),
@@ -61,7 +61,7 @@ class CartProductCard extends StatelessWidget {
                     ),
                     Text(
                       '$quantity',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     IconButton(
                       icon: const Icon(Icons.add_circle),

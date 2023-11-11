@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuncstore/blocs/blocs.dart';
 import 'package:tuncstore/blocs/cart/cart_bloc.dart';
 import 'package:tuncstore/blocs/wishlist/wishlist_bloc.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/screens/screens.dart';
 
 class CustomNavBar extends StatelessWidget {
   final String screen;
@@ -18,7 +20,7 @@ class CustomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: Colors.black,
-      child: Container(
+      child: SizedBox(
         height: 70,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -31,16 +33,18 @@ class CustomNavBar extends StatelessWidget {
 
   List<Widget>? _selectNavBar(context, screen) {
     switch (screen) {
-      case '/':
+      case HomeScreen.routeName:
         return _buildNavBar(context);
-      case '/catalog':
+      case CatalogScreen.routeName:
         return _buildNavBar(context);
-      case '/wishlist':
+      case WishlistScreen.routeName:
         return _buildNavBar(context);
-      case '/product':
+      case ProductScreen.routeName:
         return _buildAddToCartNavBar(context, product);
-      case '/cart':
+      case CartScreen.routeName:
         return _buildGoToCheckoutNavBar(context);
+      case CheckoutScreen.routeName:
+        return _buildOrderNowNavBar(context);
       default:
         _buildNavBar(context);
     }
@@ -50,19 +54,19 @@ class CustomNavBar extends StatelessWidget {
   List<Widget> _buildNavBar(context) {
     return [
       IconButton(
-        icon: Icon(Icons.home, color: Colors.white),
+        icon: const Icon(Icons.home, color: Colors.white),
         onPressed: () {
           Navigator.pushNamed(context, '/');
         },
       ),
       IconButton(
-        icon: Icon(Icons.shopping_cart, color: Colors.white),
+        icon: const Icon(Icons.shopping_cart, color: Colors.white),
         onPressed: () {
           Navigator.pushNamed(context, '/cart');
         },
       ),
       IconButton(
-        icon: Icon(Icons.person, color: Colors.white),
+        icon: const Icon(Icons.person, color: Colors.white),
         onPressed: () {
           Navigator.pushNamed(context, '/user');
         },
@@ -73,32 +77,32 @@ class CustomNavBar extends StatelessWidget {
   List<Widget> _buildAddToCartNavBar(context, product) {
     return [
       IconButton(
-        icon: Icon(Icons.share, color: Colors.white),
+        icon: const Icon(Icons.share, color: Colors.white),
         onPressed: () {},
       ),
       BlocBuilder<WishlistBloc, WishlistState>(
         builder: (context, state) {
           if (state is WishlistLoading) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
           if (state is WishlistLoaded) {
             return IconButton(
-              icon: Icon(Icons.favorite, color: Colors.white),
+              icon: const Icon(Icons.favorite, color: Colors.white),
               onPressed: () {
-                final snackBar =
+                const snackBar =
                     SnackBar(content: Text('Added to your Wishlist!'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 context.read<WishlistBloc>().add(AddProductToWishlist(product));
               },
             );
           }
-          return Text('Something went wrong!');
+          return const Text('Something went wrong!');
         },
       ),
       BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state is CartLoading) {
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           }
           if (state is CartLoaded) {
             return ElevatedButton(
@@ -107,16 +111,16 @@ class CustomNavBar extends StatelessWidget {
                 Navigator.pushNamed(context, '/cart');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
-                shape: RoundedRectangleBorder(),
+                backgroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(),
               ),
               child: Text(
                 'ADD TO CART',
-                style: Theme.of(context).textTheme.headline3,
+                style: Theme.of(context).textTheme.displaySmall,
               ),
             );
           }
-          return Text('Something went wrong!');
+          return const Text('Something went wrong!');
         },
       )
     ];
@@ -129,13 +133,46 @@ class CustomNavBar extends StatelessWidget {
           Navigator.pushNamed(context, '/checkout');
         },
         style: ElevatedButton.styleFrom(
-          primary: Colors.white,
-          shape: RoundedRectangleBorder(),
+          backgroundColor: Colors.white,
+          shape: const RoundedRectangleBorder(),
         ),
         child: Text(
           'GO TO CHECKOUT',
-          style: Theme.of(context).textTheme.headline3,
+          style: Theme.of(context).textTheme.displaySmall,
         ),
+      )
+    ];
+  }
+
+  List<Widget> _buildOrderNowNavBar(context) {
+    return [
+      BlocBuilder<CheckoutBloc, CheckoutState>(
+        builder: (context, state) {
+          if (state is CheckoutLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is CheckoutLoaded) {
+            return ElevatedButton(
+              onPressed: () {
+                context
+                    .read<CheckoutBloc>()
+                    .add(ConfirmCheckout(checkout: state.checkout));
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(),
+              ),
+              child: Text(
+                'ORDER NOW',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+            );
+          } else {
+            return const Text('Something went wrong');
+          }
+        },
       )
     ];
   }
