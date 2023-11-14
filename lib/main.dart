@@ -1,16 +1,18 @@
-import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:tuncstore/blocs/blocs.dart";
 import "package:tuncstore/config/config.dart";
+import "package:tuncstore/firebase_options.dart";
 import "package:tuncstore/repositories/repositories.dart";
 import "package:tuncstore/screens/screens.dart";
 import "package:tuncstore/simple_bloc_observer.dart";
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
@@ -38,7 +40,14 @@ class MyApp extends StatelessWidget {
           create: (context) => CheckoutBloc(
             cartBloc: context.read<CartBloc>(),
             checkoutRepository: CheckoutRepository(),
+            paymentBloc: PaymentBloc(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => PaymentBloc()
+            ..add(
+              LoadPaymentMethod(),
+            ),
         ),
       ],
       child: MaterialApp(

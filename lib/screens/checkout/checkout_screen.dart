@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuncstore/blocs/blocs.dart';
+import 'package:tuncstore/screens/screens.dart';
 import 'package:tuncstore/widgets/widgets.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -79,26 +80,32 @@ class CheckoutScreen extends StatelessWidget {
                     height: 55,
                     alignment: Alignment.bottomCenter,
                     decoration: const BoxDecoration(color: Colors.black),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Center(
-                          child: Text(
-                            'SELECT A PAYMENT METHOD',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(color: Colors.white),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(PaymentSelection.routeName);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Center(
+                            child: Text(
+                              'SELECT A PAYMENT METHOD',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displaySmall!
+                                  .copyWith(color: Colors.white),
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),

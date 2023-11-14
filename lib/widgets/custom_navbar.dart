@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuncstore/blocs/blocs.dart';
-import 'package:tuncstore/blocs/cart/cart_bloc.dart';
-import 'package:tuncstore/blocs/wishlist/wishlist_bloc.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/screens/order_confirmation/order_confirmation_screen.dart';
 import 'package:tuncstore/screens/screens.dart';
+import 'package:tuncstore/widgets/apple_pay.dart';
+import 'package:tuncstore/widgets/google_pay.dart';
 
 class CustomNavBar extends StatelessWidget {
   final String screen;
@@ -45,10 +48,80 @@ class CustomNavBar extends StatelessWidget {
         return _buildGoToCheckoutNavBar(context);
       case CheckoutScreen.routeName:
         return _buildOrderNowNavBar(context);
+      case OrderConfirmation.routeName:
+        return _buildNavBar(context);
+      case PaymentSelection.routeName:
+        return _buildOrderNowNavBar(context);
       default:
         _buildNavBar(context);
     }
     return null;
+  }
+
+  List<Widget> _buildOrderNowNavBar(context) {
+    return [
+      BlocBuilder<CheckoutBloc, CheckoutState>(
+        builder: (context, state) {
+          if (state is CheckoutLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state is CheckoutLoaded) {
+            if (Platform.isAndroid) {
+              switch (state.paymentMethod) {
+                case PaymentMethod.google_pay:
+                  return GooglePay(
+                    products: state.products!,
+                    total: state.total!,
+                  );
+                case PaymentMethod.credit_card:
+                  return Text(
+                    'Pay with Credit Card',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium!
+                        .copyWith(color: Colors.white),
+                  );
+                default:
+                  return GooglePay(
+                    products: state.products!,
+                    total: state.total!,
+                  );
+              }
+            }
+            if (Platform.isIOS) {
+              switch (state.paymentMethod) {
+                case PaymentMethod.apple_pay:
+                  return ApplePay(
+                    products: state.products!,
+                    total: state.total!,
+                  );
+                case PaymentMethod.credit_card:
+                  return Container();
+                default:
+                  return ApplePay(
+                    products: state.products!,
+                    total: state.total!,
+                  );
+              }
+            } else {
+              return ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/payment-selection');
+                },
+                child: Text(
+                  'CHOOSE PAYMENT',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              );
+            }
+          } else {
+            return const Text('Something went wrong');
+          }
+        },
+      )
+    ];
   }
 
   List<Widget> _buildNavBar(context) {
@@ -140,39 +213,6 @@ class CustomNavBar extends StatelessWidget {
           'GO TO CHECKOUT',
           style: Theme.of(context).textTheme.displaySmall,
         ),
-      )
-    ];
-  }
-
-  List<Widget> _buildOrderNowNavBar(context) {
-    return [
-      BlocBuilder<CheckoutBloc, CheckoutState>(
-        builder: (context, state) {
-          if (state is CheckoutLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state is CheckoutLoaded) {
-            return ElevatedButton(
-              onPressed: () {
-                context
-                    .read<CheckoutBloc>()
-                    .add(ConfirmCheckout(checkout: state.checkout));
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(),
-              ),
-              child: Text(
-                'ORDER NOW',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-            );
-          } else {
-            return const Text('Something went wrong');
-          }
-        },
       )
     ];
   }

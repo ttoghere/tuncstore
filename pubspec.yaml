@@ -41,6 +41,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^1.1.0
+  pay: ^1.1.2
 
 dev_dependencies:
   build_runner: ^2.4.6
@@ -62,6 +63,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

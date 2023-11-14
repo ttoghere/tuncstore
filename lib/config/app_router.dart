@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/screens/order_confirmation/order_confirmation_screen.dart';
 import 'package:tuncstore/screens/screens.dart';
 
 class AppRouter {
@@ -22,6 +23,10 @@ class AppRouter {
         return WishlistScreen.route();
       case CheckoutScreen.routeName:
         return CheckoutScreen.route();
+      case OrderConfirmation.routeName:
+        return OrderConfirmation.route();
+      case PaymentSelection.routeName:
+        return PaymentSelection.route();
       default:
         return _errorRoute();
     }
