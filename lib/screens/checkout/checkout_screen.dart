@@ -1,5 +1,7 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:tuncstore/blocs/blocs.dart';
 import 'package:tuncstore/screens/screens.dart';
 import 'package:tuncstore/widgets/widgets.dart';
@@ -39,41 +41,53 @@ class CheckoutScreen extends StatelessWidget {
                     'CUSTOMER INFORMATION',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(email: value));
-                  }, context, 'Email'),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(fullName: value));
-                  }, context, 'Full Name'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(email: value));
+                      },
+                      labelText: 'Email'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(fullName: value));
+                      },
+                      labelText: 'Full Name'),
                   const SizedBox(height: 15),
                   Text(
                     'DELIVERY INFORMATION',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(address: value));
-                  }, context, 'Address'),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(city: value));
-                  }, context, 'City'),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(country: value));
-                  }, context, 'Country'),
-                  _buildTextFormField((value) {
-                    context
-                        .read<CheckoutBloc>()
-                        .add(UpdateCheckout(zipCode: value));
-                  }, context, 'ZIP Code'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(address: value));
+                      },
+                      labelText: 'Address'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(city: value));
+                      },
+                      labelText: 'City'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(country: value));
+                      },
+                      labelText: 'Country'),
+                  CustomTextFormField(
+                      onChanged: (value) {
+                        context
+                            .read<CheckoutBloc>()
+                            .add(UpdateCheckout(zipCode: value));
+                      },
+                      labelText: 'ZIP Code'),
                   const SizedBox(height: 15),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -121,39 +135,6 @@ class CheckoutScreen extends StatelessWidget {
             return const Text('Something went wrong');
           }
         },
-      ),
-    );
-  }
-
-  Padding _buildTextFormField(
-    Function(String)? onChanged,
-    BuildContext context,
-    String labelText,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 75,
-            child: Text(
-              labelText,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-          Expanded(
-            child: TextFormField(
-              onChanged: onChanged,
-              decoration: const InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.only(left: 10),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

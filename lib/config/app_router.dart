@@ -27,6 +27,8 @@ class AppRouter {
         return OrderConfirmation.route();
       case PaymentSelection.routeName:
         return PaymentSelection.route();
+      case UserScreen.routeName:
+        return UserScreen.route();
       default:
         return _errorRoute();
     }
