@@ -9,10 +9,12 @@ import 'package:tuncstore/widgets/widgets.dart';
 class PaymentSelection extends StatelessWidget {
   static const String routeName = '/payment-selection';
 
+  const PaymentSelection({super.key});
+
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (context) => PaymentSelection(),
+      builder: (context) => const PaymentSelection(),
     );
   }
 

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tuncstore/models/product_model.dart';
+import 'package:tuncstore/models/product_model/product_model.dart';
 import 'package:tuncstore/repositories/product/base_product_repository.dart';
 
 class ProductRepository extends BaseProductRepository {

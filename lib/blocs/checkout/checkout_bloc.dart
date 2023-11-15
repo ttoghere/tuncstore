@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import '/blocs/blocs.dart';
 import '/models/models.dart';
@@ -40,10 +41,11 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
 
     _cartSubscription = _cartBloc.stream.listen(
       (state) {
-        if (state is CartLoaded)
+        if (state is CartLoaded) {
           add(
             UpdateCheckout(cart: state.cart),
           );
+        }
       },
     );
 
@@ -60,7 +62,7 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     UpdateCheckout event,
     Emitter<CheckoutState> emit,
   ) {
-    if (this.state is CheckoutLoaded) {
+    if (state is CheckoutLoaded) {
       final state = this.state as CheckoutLoaded;
       emit(
         CheckoutLoaded(
@@ -85,10 +87,10 @@ class CheckoutBloc extends Bloc<CheckoutEvent, CheckoutState> {
     Emitter<CheckoutState> emit,
   ) async {
     _checkoutSubscription?.cancel();
-    if (this.state is CheckoutLoaded) {
+    if (state is CheckoutLoaded) {
       try {
         await _checkoutRepository.addCheckout(event.checkout);
-        print('Done');
+        log('Done');
         emit(CheckoutLoading());
       } catch (_) {}
     }

@@ -23,7 +23,7 @@ class WishlistScreen extends StatelessWidget {
         body: BlocBuilder<WishlistBloc, WishlistState>(
           builder: (context, state) {
             if (state is WishlistLoading) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             }
             if (state is WishlistLoaded) {
               return Padding(

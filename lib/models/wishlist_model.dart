@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:tuncstore/models/product_model.dart';
+import 'package:tuncstore/models/product_model/product_model.dart';
 
 class Wishlist extends Equatable {
   final List<Product> products;

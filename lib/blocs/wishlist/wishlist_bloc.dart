@@ -3,13 +3,19 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/repositories/local_storage/local_storage.dart';
 
 part 'wishlist_event.dart';
 part 'wishlist_state.dart';
 
 class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
-  WishlistBloc() : super(WishlistLoading()) {
+  final LocalStorage _localStorageRepository;
+
+  WishlistBloc({required LocalStorage localStorageRepository})
+      : _localStorageRepository = localStorageRepository,
+        super(WishlistLoading()) {
     on<StartWishlist>(_onStartWishlist);
     on<AddProductToWishlist>(_onAddProductToWishlist);
     on<RemoveProductFromWishlist>(_onRemoveProductFromWishlist);
@@ -21,8 +27,14 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   ) async {
     emit(WishlistLoading());
     try {
+      Box box = await _localStorageRepository.openBox();
+      List<Product> products = _localStorageRepository.getWishlist(box);
       await Future<void>.delayed(const Duration(seconds: 1));
-      emit(const WishlistLoaded());
+      emit(
+        WishlistLoaded(
+          wishlist: Wishlist(products: products),
+        ),
+      );
     } catch (_) {
       emit(WishlistError());
     }
@@ -31,14 +43,18 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   void _onAddProductToWishlist(
     AddProductToWishlist event,
     Emitter<WishlistState> emit,
-  ) {
-    if (state is WishlistLoaded) {
+  ) async {
+    if (this.state is WishlistLoaded) {
       try {
+        Box box = await _localStorageRepository.openBox();
+        _localStorageRepository.addProductToWishlist(box, event.product);
+
         emit(
           WishlistLoaded(
             wishlist: Wishlist(
-              products: List.from((state as WishlistLoaded).wishlist.products)
-                ..add(event.product),
+              products:
+                  List.from((this.state as WishlistLoaded).wishlist.products)
+                    ..add(event.product),
             ),
           ),
         );
@@ -51,14 +67,18 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
   void _onRemoveProductFromWishlist(
     RemoveProductFromWishlist event,
     Emitter<WishlistState> emit,
-  ) {
-    if (state is WishlistLoaded) {
+  ) async {
+    if (this.state is WishlistLoaded) {
       try {
+        Box box = await _localStorageRepository.openBox();
+        _localStorageRepository.removeProductFromWishlist(box, event.product);
+
         emit(
           WishlistLoaded(
             wishlist: Wishlist(
-              products: List.from((state as WishlistLoaded).wishlist.products)
-                ..remove(event.product),
+              products:
+                  List.from((this.state as WishlistLoaded).wishlist.products)
+                    ..remove(event.product),
             ),
           ),
         );

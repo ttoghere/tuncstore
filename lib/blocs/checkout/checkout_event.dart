@@ -17,7 +17,7 @@ class UpdateCheckout extends CheckoutEvent {
   final Cart? cart;
   final PaymentMethod? paymentMethod;
 
-  UpdateCheckout({
+  const UpdateCheckout({
     this.fullName,
     this.email,
     this.address,
