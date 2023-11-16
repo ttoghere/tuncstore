@@ -6,3 +6,4 @@ export 'checkout/checkout_bloc.dart';
 export 'payment/payment_bloc.dart';
 export 'auth/auth_bloc.dart';
 export 'profile/profile_bloc.dart';
+export 'search/search_bloc.dart';

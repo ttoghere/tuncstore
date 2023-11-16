@@ -2,7 +2,6 @@ import "package:firebase_core/firebase_core.dart";
 import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:hive_flutter/hive_flutter.dart";
-import "package:tuncstore/blocs/auth/auth_bloc.dart";
 import "package:tuncstore/blocs/blocs.dart";
 import "package:tuncstore/config/config.dart";
 import "package:tuncstore/cubits/cubits.dart";
@@ -82,7 +81,15 @@ class MyApp extends StatelessWidget {
               ),
           ),
           BlocProvider(
+            create: (context) => SearchBloc(
+              productBloc: context.read<ProductBloc>(),
+            )..add(
+                LoadSearch(),
+              ),
+          ),
+          BlocProvider(
             create: (context) => CheckoutBloc(
+              authBloc: context.read<AuthBloc>(),
               cartBloc: context.read<CartBloc>(),
               checkoutRepository: CheckoutRepository(),
               paymentBloc: PaymentBloc(),

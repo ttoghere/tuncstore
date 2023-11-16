@@ -18,7 +18,7 @@ class SignupState extends Equatable {
   });
 
   factory SignupState.initial() {
-    return SignupState(
+    return const SignupState(
       password: '',
       status: SignupStatus.initial,
       authUser: null,

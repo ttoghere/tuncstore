@@ -1,25 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
+
 import 'package:tuncstore/models/models.dart';
 
 class Checkout extends Equatable {
-  final String? fullName;
-  final String? email;
-  final String? address;
-  final String? city;
-  final String? country;
-  final String? zipCode;
+  final User? user;
   final List<Product>? products;
   final String? subtotal;
   final String? deliveryFee;
   final String? total;
 
   const Checkout({
-    required this.fullName,
-    required this.email,
-    required this.address,
-    required this.city,
-    required this.country,
-    required this.zipCode,
+    this.user,
     required this.products,
     required this.subtotal,
     required this.deliveryFee,
@@ -28,12 +20,7 @@ class Checkout extends Equatable {
 
   @override
   List<Object?> get props => [
-        fullName,
-        email,
-        address,
-        city,
-        country,
-        zipCode,
+        user,
         products,
         subtotal,
         deliveryFee,
@@ -41,20 +28,28 @@ class Checkout extends Equatable {
       ];
 
   Map<String, Object> toDocument() {
-    Map customerAddress = {};
-    customerAddress['address'] = address;
-    customerAddress['city'] = city;
-    customerAddress['country'] = country;
-    customerAddress['zipCode'] = zipCode;
-
     return {
-      'customerAddress': customerAddress,
-      'customerName': fullName!,
-      'customerEmail': email!,
+      'user': user?.toDocument() ?? User.empty.toDocument(),
       'products': products!.map((product) => product.name).toList(),
       'subtotal': subtotal!,
       'deliveryFee': deliveryFee!,
       'total': total!
     };
+  }
+
+  Checkout copyWith({
+    User? user,
+    List<Product>? products,
+    String? subtotal,
+    String? deliveryFee,
+    String? total,
+  }) {
+    return Checkout(
+      user: user ?? this.user,
+      products: products ?? this.products,
+      subtotal: subtotal ?? this.subtotal,
+      deliveryFee: deliveryFee ?? this.deliveryFee,
+      total: total ?? this.total,
+    );
   }
 }

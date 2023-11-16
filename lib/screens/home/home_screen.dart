@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:tuncstore/blocs/category/category_bloc.dart";
 import "package:tuncstore/blocs/product/product_bloc.dart";
+import "package:tuncstore/widgets/search_box.dart";
 import "package:tuncstore/widgets/widgets.dart";
 
 class HomeScreen extends StatelessWidget {
@@ -55,6 +56,7 @@ class HomeScreen extends StatelessWidget {
                   }
                 },
               ),
+              const SearchBox(),
               const SectionTitle(title: "RECOMMENDED"),
               BlocBuilder<ProductBloc, ProductState>(
                 builder: (context, state) {
