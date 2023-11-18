@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuncstore/blocs/blocs.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/screens/order_confirmation/order_confirmation_screen.dart';
 import 'package:tuncstore/screens/screens.dart';
 import 'package:tuncstore/widgets/apple_pay.dart';
 import 'package:tuncstore/widgets/google_pay.dart';
@@ -189,39 +190,20 @@ class OrderNowNavBar extends StatelessWidget {
               );
             }
             if (state is CheckoutLoaded) {
-              if (state.paymentMethod == PaymentMethod.credit_card) {
-                return Text(
-                  'Pay with Credit Card',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineMedium!
-                      .copyWith(color: Colors.white),
-                );
-              }
-              if (Platform.isAndroid &&
-                  state.paymentMethod == PaymentMethod.google_pay) {
-                return GooglePay(
-                  products: state.products!,
-                  total: state.total!,
-                );
-              }
-              if (Platform.isIOS &&
-                  state.paymentMethod == PaymentMethod.apple_pay) {
-                return ApplePay(
-                  products: state.products!,
-                  total: state.total!,
-                );
-              } else {
-                return ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, PaymentSelection.routeName);
-                  },
-                  child: Text(
-                    'CHOOSE PAYMENT',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                );
-              }
+              return ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OrderConfirmation(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Go To Order Confirmation PAYMENT',
+                  style: Theme.of(context).textTheme.displaySmall,
+                ),
+              );
             } else {
               return const Text('Something went wrong');
             }

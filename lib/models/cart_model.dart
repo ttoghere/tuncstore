@@ -9,6 +9,12 @@ class Cart extends Equatable {
   @override
   List<Object?> get props => [products];
 
+  Map<String, dynamic> toDocument() {
+    return {
+      'products': products.map((product) => product.toDocument()).toList(),
+    };
+  }
+
   Map productQuantity(products) {
     var quantity = {};
 
@@ -41,6 +47,15 @@ class Cart extends Equatable {
       double missing = 30.0 - subtotal;
       return 'Add \$${missing.toStringAsFixed(2)} for FREE Delivery';
     }
+  }
+
+  static Cart fromJson(Map<String, dynamic> json) {
+    Cart cart = Cart(
+      products: (json['products'] as List)
+          .map((product) => Product.fromJson(product))
+          .toList(),
+    );
+    return cart;
   }
 
   double total(subtotal, deliveryFee) {

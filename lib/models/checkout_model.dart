@@ -4,52 +4,51 @@ import 'package:equatable/equatable.dart';
 import 'package:tuncstore/models/models.dart';
 
 class Checkout extends Equatable {
+  final String? id;
+  final Cart cart;
   final User? user;
-  final List<Product>? products;
-  final String? subtotal;
-  final String? deliveryFee;
-  final String? total;
 
   const Checkout({
     this.user,
-    required this.products,
-    required this.subtotal,
-    required this.deliveryFee,
-    required this.total,
+    required this.cart,
+    this.id = "",
   });
 
   @override
   List<Object?> get props => [
         user,
-        products,
-        subtotal,
-        deliveryFee,
-        total,
+        id,
+        cart,
       ];
+
+  static Checkout fromJson(
+    Map<String, dynamic> json, [
+    String? id,
+  ]) {
+    Checkout checkout = Checkout(
+      id: id ?? json['id'],
+      user: User.fromJson(json['user']),
+      cart: Cart.fromJson(json['cart']),
+    );
+    return checkout;
+  }
 
   Map<String, Object> toDocument() {
     return {
       'user': user?.toDocument() ?? User.empty.toDocument(),
-      'products': products!.map((product) => product.name).toList(),
-      'subtotal': subtotal!,
-      'deliveryFee': deliveryFee!,
-      'total': total!
+      'cart': cart.toDocument(),
     };
   }
 
   Checkout copyWith({
+    String? id,
     User? user,
-    List<Product>? products,
-    String? subtotal,
-    String? deliveryFee,
-    String? total,
+    Cart? cart,
   }) {
     return Checkout(
+      id: id ?? this.id,
       user: user ?? this.user,
-      products: products ?? this.products,
-      subtotal: subtotal ?? this.subtotal,
-      deliveryFee: deliveryFee ?? this.deliveryFee,
-      total: total ?? this.total,
+      cart: cart ?? this.cart,
     );
   }
 }

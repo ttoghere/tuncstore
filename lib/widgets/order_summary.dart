@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tuncstore/blocs/blocs.dart';
+import 'package:tuncstore/models/models.dart';
 
 class OrderSummary extends StatelessWidget {
-  const OrderSummary({
-    Key? key,
-  }) : super(key: key);
+  const OrderSummary({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -37,6 +37,9 @@ class MyApp extends StatelessWidget {
             userRepository: context.read<UserRepository>(),
           ),
         ),
+        RepositoryProvider(
+          create: (context) => CheckoutRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -100,6 +103,11 @@ class MyApp extends StatelessWidget {
               ..add(
                 LoadPaymentMethod(),
               ),
+          ),
+          BlocProvider(
+            create: (context) => OrderConfirmationBloc(
+              checkoutRepository: context.read<CheckoutRepository>(),
+            ),
           ),
         ],
         child: MaterialApp(

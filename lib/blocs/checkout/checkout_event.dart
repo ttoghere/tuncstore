@@ -9,34 +9,12 @@ abstract class CheckoutEvent extends Equatable {
 }
 
 class UpdateCheckout extends CheckoutEvent {
-  final User? user;
-  final Cart? cart;
-  final PaymentMethod? paymentMethod;
+  final Checkout checkout;
 
-  const UpdateCheckout({
-    this.user,
-    this.cart,
-    this.paymentMethod,
-  });
+  const UpdateCheckout(this.checkout);
 
   @override
-  List<Object?> get props => [
-        user,
-        cart,
-        paymentMethod,
-      ];
-
-  UpdateCheckout copyWith({
-    User? user,
-    Cart? cart,
-    PaymentMethod? paymentMethod,
-  }) {
-    return UpdateCheckout(
-      user: user ?? this.user,
-      cart: cart ?? this.cart,
-      paymentMethod: paymentMethod ?? this.paymentMethod,
-    );
-  }
+  List<Object?> get props => [checkout];
 }
 
 class ConfirmCheckout extends CheckoutEvent {

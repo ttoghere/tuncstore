@@ -44,6 +44,20 @@ class Product extends Equatable {
     return product;
   }
 
+  static Product fromJson(Map<String, dynamic> json, [String? id]) {
+    Product product = Product(
+      id: id ?? json['id'],
+      name: json['name'],
+      category: json['category'],
+      imageUrl: json['imageUrl'],
+      price: json['price'],
+      isRecommended: json['isRecommended'],
+      isPopular: json['isPopular'],
+      description: json['description'],
+    );
+    return product;
+  }
+
   @override
   List<Object?> get props => [
         name,
@@ -55,6 +69,19 @@ class Product extends Equatable {
         description,
         isPopular,
       ];
+
+  Map<String, dynamic> toDocument() {
+    return {
+      'id': id,
+      'name': name,
+      'category': category,
+      'imageUrl': imageUrl,
+      'price': price,
+      'isRecommended': isRecommended,
+      'isPopular': isPopular,
+      'description': description,
+    };
+  }
 
   static List<Product> products = [
     const Product(
