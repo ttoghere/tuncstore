@@ -9,3 +9,5 @@ export 'payment_selection/payment_selection.dart';
 export 'user/user_screen.dart';
 export 'sign_up/signup_screen.dart';
 export 'login/login_screen.dart';
+export 'diy/diy_details_screen.dart';
+export 'diy/diy_list_screen.dart';

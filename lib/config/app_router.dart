@@ -33,6 +33,10 @@ class AppRouter {
         return SignupScreen.route();
       case LoginScreen.routeName:
         return LoginScreen.route();
+      case DIYDetailsScreen.routeName:
+        return DIYDetailsScreen.route();
+      case DIYListScreen.routeName:
+        return DIYListScreen.route();
       default:
         return _errorRoute();
     }
