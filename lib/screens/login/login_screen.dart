@@ -45,7 +45,13 @@ class LoginScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                context.read<LoginCubit>().logInWithCredentials(context);
+                context
+                    .read<LoginCubit>()
+                    .logInWithCredentials(context)
+                    .whenComplete(
+                      () =>
+                          Navigator.of(context).pushNamed(HomeScreen.routeName),
+                    );
               },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(),
