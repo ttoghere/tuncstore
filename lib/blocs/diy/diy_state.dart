@@ -10,7 +10,7 @@ sealed class DiyState extends Equatable {
 class DiyLoading extends DiyState {}
 
 class DiyLoaded extends DiyState {
-  final DIYModel diyModel;
+  final List<DIYModel> diyModel;
 
   const DiyLoaded({required this.diyModel});
 

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/material.dart';
 import 'package:tuncstore/models/models.dart';
 
 abstract class BaseAuthRepository {
@@ -7,9 +8,9 @@ abstract class BaseAuthRepository {
     required User user,
     required String password,
   });
-  Future<void> logInWithEmailAndPassword({
-    required String email,
-    required String password,
-  });
+  Future<void> logInWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required BuildContext context});
   Future<void> signOut();
 }

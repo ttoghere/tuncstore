@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:flutter/material.dart';
 import 'package:tuncstore/models/models.dart';
 import 'package:tuncstore/repositories/auth/base_auth_repository.dart';
 import 'package:tuncstore/repositories/repositories.dart';
@@ -32,16 +35,86 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
-  Future<void> logInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> logInWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-    } catch (_) {}
+    } on auth.FirebaseAuthException catch (e) {
+      // FirebaseAuthException türündeki hataları işle
+      if (e.code == 'user-not-found') {
+        // Kullanıcı bulunamadı hatası
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text(
+                    "An Error Occured",
+                  ),
+                  content: Text("Error: ${e.message}"),
+                ));
+      } else if (e.code == 'wrong-password') {
+        // Yanlış şifre hatası
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text(
+                    "An Error Occured",
+                  ),
+                  content: Text("Error: ${e.message}"),
+                ));
+      } else {
+        // Diğer hatalar
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: const Text(
+                    "An Error Occured",
+                  ),
+                  content: Text("Error: ${e.message}"),
+                ));
+      }
+    } catch (e) {
+      // FirebaseAuthException dışındaki genel hataları işle
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: const Text(
+                  "An Error Occured",
+                ),
+                content: Text("Error: $e"),
+              ));
+    }
+  }
+
+  void sendPasswordResetEmail(
+      {required String email, required BuildContext context}) async {
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on auth.FirebaseAuthException catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("An Error Occured"),
+          content: Text(
+            e.message.toString(),
+          ),
+        ),
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("An Error Occured"),
+          content: Text(
+            e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
   @override

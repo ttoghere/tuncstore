@@ -45,17 +45,4 @@ class DIYModel {
     );
     return diyModel;
   }
-
-  //   static Product fromSnapshot(DocumentSnapshot snap) {
-  //   Product product = Product(
-  //       id: snap.id,
-  //       name: snap['name'],
-  //       category: snap['category'],
-  //       imageUrl: snap['imageUrl'],
-  //       price: snap['price'],
-  //       isRecommended: snap['isRecommended'],
-  //       isPopular: snap['isPopular'],
-  //       description: snap["description"]);
-  //   return product;
-  // }
 }

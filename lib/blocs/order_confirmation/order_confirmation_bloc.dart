@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tuncstore/blocs/blocs.dart';
 import 'package:tuncstore/models/checkout_model.dart';
 import 'package:tuncstore/repositories/checkout/checkout_repository.dart';
 import 'package:equatable/equatable.dart';

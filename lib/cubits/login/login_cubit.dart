@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import "package:flutter_bloc/flutter_bloc.dart";
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -21,11 +22,12 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(password: value, status: LoginStatus.initial));
   }
 
-  Future<void> logInWithCredentials() async {
+  Future<void> logInWithCredentials(BuildContext context) async {
     if (state.status == LoginStatus.submitting) return;
     emit(state.copyWith(status: LoginStatus.submitting));
     try {
       await _authRepository.logInWithEmailAndPassword(
+        context: context,
         email: state.email,
         password: state.password,
       );

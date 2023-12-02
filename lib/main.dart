@@ -3,10 +3,12 @@ import "package:flutter/material.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:hive_flutter/hive_flutter.dart";
 import "package:tuncstore/blocs/blocs.dart";
+import "package:tuncstore/blocs/diy/diy_bloc.dart";
 import "package:tuncstore/config/config.dart";
 import "package:tuncstore/cubits/cubits.dart";
 import "package:tuncstore/firebase_options.dart";
 import "package:tuncstore/models/models.dart";
+import "package:tuncstore/repositories/diy/diy_repository.dart";
 import "package:tuncstore/repositories/repositories.dart";
 import "package:tuncstore/screens/screens.dart";
 import "package:tuncstore/simple_bloc_observer.dart";
@@ -40,6 +42,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => CheckoutRepository(),
         ),
+        RepositoryProvider(
+          create: (context) => DIYRepository(),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -56,6 +61,11 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => LoginCubit(
+              authRepository: context.read<AuthRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => PasswordResetCubit(
               authRepository: context.read<AuthRepository>(),
             ),
           ),
@@ -108,6 +118,13 @@ class MyApp extends StatelessWidget {
             create: (context) => OrderConfirmationBloc(
               checkoutRepository: context.read<CheckoutRepository>(),
             ),
+          ),
+          BlocProvider(
+            create: (context) => DiyBloc(
+              diyRepository: context.read<DIYRepository>(),
+            )..add(
+                LoadDIY(),
+              ),
           ),
         ],
         child: MaterialApp(

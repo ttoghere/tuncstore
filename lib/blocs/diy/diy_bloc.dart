@@ -1,7 +1,5 @@
 import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tuncstore/models/diy_model.dart';
 import 'package:tuncstore/repositories/diy/diy_repository.dart';
@@ -16,6 +14,7 @@ class DiyBloc extends Bloc<DiyEvent, DiyState> {
       : _diyRepository = diyRepository,
         super(DiyLoading()) {
     on<LoadDIY>(_onLoadRecipes);
+    on<ShowDIY>(_onShowDIY);
   }
 
   void _onLoadRecipes(
@@ -26,5 +25,11 @@ class DiyBloc extends Bloc<DiyEvent, DiyState> {
     diySubscription = _diyRepository.getDIYitems().listen(
           (recipes) => add(ShowDIY(recipes: recipes)),
         );
+  }
+
+  void _onShowDIY(ShowDIY event, Emitter<DiyState> emit) {
+    emit(
+      DiyLoaded(diyModel: event.recipes),
+    );
   }
 }

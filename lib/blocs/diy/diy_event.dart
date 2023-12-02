@@ -16,6 +16,5 @@ class ShowDIY extends DiyEvent {
     required this.recipes,
   });
   @override
-  // TODO: implement props
   List<Object> get props => [recipes];
 }

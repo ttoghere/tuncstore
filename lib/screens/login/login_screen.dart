@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tuncstore/screens/forget_password/forget_password.dart';
 import 'package:tuncstore/screens/home/home_screen.dart';
 
 import '../../cubits/cubits.dart';
@@ -27,24 +28,24 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 200,
+              width: 200,
+              child: Image.asset("assets/images/logo.png"),
+            ),
             _EmailInput(),
             const SizedBox(height: 10),
             _PasswordInput(),
             const SizedBox(height: 10),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(ForgetPasswordScreen.routeName);
+              },
+              child: const Text("Forget Password"),
+            ),
             ElevatedButton(
               onPressed: () {
-                context
-                    .read<LoginCubit>()
-                    .logInWithCredentials()
-                    .catchError((error) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Wrong id or password"),
-                    ),
-                  );
-                }).whenComplete(
-                  () => Navigator.of(context).pushNamed(HomeScreen.routeName),
-                );
+                context.read<LoginCubit>().logInWithCredentials(context);
               },
               style: ElevatedButton.styleFrom(
                 shape: const RoundedRectangleBorder(),

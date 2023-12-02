@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tuncstore/screens/diy/diy_list_screen.dart';
+import 'package:tuncstore/screens/screens.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -28,13 +30,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       iconTheme: const IconThemeData(color: Colors.black),
+      leading: IconButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(DIYListScreen.routeName);
+        },
+        icon: const Icon(Icons.list),
+      ),
       actions: [
         IconButton(
           icon: const Icon(Icons.favorite),
           onPressed: () {
             Navigator.pushNamed(
               context,
-              '/wishlist',
+              WishlistScreen.routeName,
             );
           },
         ),

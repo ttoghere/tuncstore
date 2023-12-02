@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:tuncstore/models/diy_model.dart';
 import 'package:tuncstore/models/models.dart';
+import 'package:tuncstore/screens/forget_password/forget_password.dart';
 import 'package:tuncstore/screens/order_confirmation/order_confirmation_screen.dart';
 import 'package:tuncstore/screens/screens.dart';
 
@@ -29,12 +31,15 @@ class AppRouter {
         return PaymentSelection.route();
       case UserScreen.routeName:
         return UserScreen.route();
+      case ForgetPasswordScreen.routeName:
+        return ForgetPasswordScreen.route();
       case SignupScreen.routeName:
         return SignupScreen.route();
       case LoginScreen.routeName:
         return LoginScreen.route();
       case DIYDetailsScreen.routeName:
-        return DIYDetailsScreen.route();
+        var diyModel = settings.arguments as DIYModel;
+        return DIYDetailsScreen.route(diyModel: diyModel);
       case DIYListScreen.routeName:
         return DIYListScreen.route();
       default:
